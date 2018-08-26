@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class TaxCalculatorText {
+public class TaxCalculatorTest {
 
 	@Test
 	public void test() {
