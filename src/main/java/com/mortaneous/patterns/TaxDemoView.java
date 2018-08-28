@@ -10,11 +10,13 @@ import java.util.Map;
 import java.util.HashMap;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.Container;
 
 import static javax.swing.LayoutStyle.ComponentPlacement.UNRELATED;
 
-public class TaxDemoView extends JFrame implements ActionListener
+public class TaxDemoView extends JFrame implements ActionListener, FocusListener
 {
 	/**
 	 * 
@@ -87,6 +89,7 @@ public class TaxDemoView extends JFrame implements ActionListener
 
 		amountTextField = new JTextField("0");
 		amountTextField.addActionListener(this);
+		amountTextField.addFocusListener(this);
 		
 		stateLabel = new JLabel("State");
 
@@ -184,6 +187,9 @@ public class TaxDemoView extends JFrame implements ActionListener
 		taxTextField.setText(String.format("%4.2f", taxCalculator.getTaxAmount()));
 	}
 	
+	//
+	// ActionListener
+	//
 	@Override
 	public void actionPerformed(ActionEvent event)
 	{
@@ -204,6 +210,24 @@ public class TaxDemoView extends JFrame implements ActionListener
 		}
 		else {
 			System.out.println("event.getSource() = " + event.getSource());
+		}
+	}
+	
+	//
+	// FocusListener
+	//
+	
+	@Override
+	public void focusGained(FocusEvent event)
+	{
+	}
+	
+	@Override
+	public void focusLost(FocusEvent event)
+	{
+		if(event.getComponent() == amountTextField) {
+			updateAmount();
+			updateTaxAmount();
 		}
 	}
 }
